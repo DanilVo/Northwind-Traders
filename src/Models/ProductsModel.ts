@@ -1,7 +1,7 @@
-export default class ProductsModel {
-   public id:number;
-   public name:string;
-   public price:string;
-   public stock:string;
-   public imageUrl:string;
+export default interface ProductsModel {
+  id: number;
+  name: string;
+  price: string;
+  stock: string;
+  imageUrl: string;
 }
