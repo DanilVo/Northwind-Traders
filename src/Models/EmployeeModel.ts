@@ -5,5 +5,5 @@ export default interface EmployeeModel {
   title: string;
   city: string;
   birthDate: string;
-  imageName: string;
+  imageUrl: string;
 }

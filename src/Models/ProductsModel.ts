@@ -4,4 +4,5 @@ export default interface ProductsModel {
   price: string;
   stock: string;
   imageUrl: string;
+  image: File;
 }
