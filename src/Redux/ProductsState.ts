@@ -27,17 +27,18 @@ function productsReducer(
     case ProductsActionTypes.AddProduct:
       newState.products.push(action.payload);
       break;
+
     case ProductsActionTypes.DeleteProduct:
       const indexToDelete = newState.products.findIndex(
         (p) => action.payload === p.id
       );
-      console.log(indexToDelete);
-
       newState.products.splice(indexToDelete, 1);
       break;
+
     case ProductsActionTypes.SetProducts:
       newState.products = action.payload;
       break;
+
     case ProductsActionTypes.UpdateProduct:
       const indexToUpdate = newState.products.findIndex(
         (p) => p.id === action.payload.id

@@ -13,7 +13,7 @@ function Header({ setOpenNav }: any): JSX.Element {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton onClick={() => setOpenNav(true)}>
               <MenuIcon sx={{ color: 'white', ml: 0 }} />

@@ -1,17 +1,11 @@
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  appBarClasses,
-} from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import ProductsModel from '../../../Models/ProductsModel';
 import productsServices from '../../../Service/ProductsServices';
-import './EditProduct.css';
 import appConfig from '../../../Utils/AppConfig';
+import './EditProduct.css';
 
 function EditProduct(): JSX.Element {
   const { prodId } = useParams();
@@ -64,7 +58,6 @@ function EditProduct(): JSX.Element {
         <TextField variant="outlined" type="number" {...register('stock')} />
 
         <button>Update</button>
-        <NavLink to={appConfig.productsUrl}></NavLink>
       </Box>
     </form>
   );

@@ -1,6 +1,5 @@
 import { createStore } from 'redux';
 import EmployeeModel from '../Models/EmployeeModel';
-import { ProductsAction } from './ProductsState';
 
 export class EmployeeState {
   employees: EmployeeModel[] = [];
@@ -10,7 +9,7 @@ export enum EmployeeActionTypes {
   setEmployees = 'setEmployees',
   editEmployee = 'editEmployee',
   deleteEmployee = 'deleteEmployee',
-  updateEmployee = 'updateEmployee',
+  addEmployee = 'addEmployee',
 }
 
 export class EmployeeActions {
@@ -28,17 +27,26 @@ function employeeReducer(
     case EmployeeActionTypes.setEmployees:
       newState.employees = action.payload;
       break;
+
     case EmployeeActionTypes.deleteEmployee:
       const indexToDelete = newState.employees.findIndex(
-        (e) => e.id === action.payload.id
+        (e) => e.id === action.payload
       );
       newState.employees.splice(indexToDelete, 1);
       break;
+
     case EmployeeActionTypes.editEmployee:
+      const indexToReplace = newState.employees.findIndex(
+        (e) => e.id === action.payload.id
+      );
+      newState.employees[indexToReplace] = action.payload;
       break;
-    case EmployeeActionTypes.updateEmployee:
+
+    case EmployeeActionTypes.addEmployee:
+      newState.employees.push(action.payload);
       break;
   }
+
   return newState;
 }
 

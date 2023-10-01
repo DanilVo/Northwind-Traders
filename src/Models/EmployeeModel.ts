@@ -6,4 +6,5 @@ export default interface EmployeeModel {
   city: string;
   birthDate: string;
   imageUrl: string;
+  image: File;
 }

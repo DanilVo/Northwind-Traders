@@ -11,18 +11,19 @@ function AddProduct(): JSX.Element {
   const { register, handleSubmit } = useForm<ProductsModel>();
   const [imageFile, setImageFile] = useState<string>();
 
-  function imgFile(e: any) {
-    const files = e.target.files;
-    
-    setImageFile(URL.createObjectURL(files[0]));
-}
+  function imgFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const { files } = e.target;
+    if (files && files.length > 0) {
+      setImageFile(URL.createObjectURL(files[0]));
+    }
+  }
 
-async function newProduct(product: ProductsModel) {
+  async function newProduct(product: ProductsModel) {
     try {
-        console.log(product);
-      product.image = (product.image as unknown as FileList)[0];
+      console.log( product.image);
+      product.image = (product.image as unknown as FileList)[0]; // casting
+      console.log( product.image);
       await productsServices.addProduct(product);
-      console.log(product);
       nav('/products');
     } catch (error) {
       console.log(error);
@@ -33,6 +34,7 @@ async function newProduct(product: ProductsModel) {
       <Box
         sx={{
           m: 'auto',
+          marginTop: 10,
           width: 350,
           height: 370,
           display: 'flex',

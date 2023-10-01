@@ -62,10 +62,10 @@ class ProductsServices {
       headers: { 'Content-Type': 'multipart/form-data' },
     };
     const response = await axios.post(appConfig.productsUrl, product, options);
-    const data = response.data;
+    const { data } = response;
     const action: ProductsAction = {
       type: ProductsActionTypes.AddProduct,
-      payload: product,
+      payload: data,
     };
 
     productsStore.dispatch(action);

@@ -1,3 +1,4 @@
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {
   Box,
   Button,
@@ -8,8 +9,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import EmployeeModel from '../../../Models/EmployeeModel';
 import employeesServices from '../../../Service/EmployeesServices';
@@ -46,9 +49,7 @@ function EmployeeList(): JSX.Element {
 
   async function deleteEmployee(id: number) {
     try {
-      console.log('asdasd');
       await employeesServices.deleteEmployee(id);
-
       isDeleted ? setDeleted(false) : setDeleted(true);
     } catch (error) {
       console.log(error);
@@ -56,7 +57,7 @@ function EmployeeList(): JSX.Element {
   }
 
   return (
-    <Box sx={{ flexGrow: 1, m: 5 }}>
+    <Box sx={{ flexGrow: 1, m: 5, marginTop: 1 }}>
       <TableContainer>
         <Table aria-label="simple table">
           <TableHead>
@@ -79,10 +80,12 @@ function EmployeeList(): JSX.Element {
                 </TableCell>
                 <TableCell>
                   <ButtonGroup>
+                    <NavLink to={`edit/${feEmployee.id}`}>
+                      <Button>Edit</Button>
+                    </NavLink>
                     <Button onClick={() => deleteEmployee(feEmployee.id)}>
-                      Edit
+                      Delete
                     </Button>
-                    <Button>Delete</Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>
@@ -90,6 +93,17 @@ function EmployeeList(): JSX.Element {
           </TableBody>
         </Table>
       </TableContainer>
+      <NavLink to={'/employees/addEmployee'}>
+        <Tooltip
+          title="Add new product"
+          placement="bottom"
+          sx={{ position: 'fixed', bottom: 55, right: 5 }}
+        >
+          <Button>
+            <AddCircleIcon fontSize="large" />
+          </Button>
+        </Tooltip>
+      </NavLink>
     </Box>
   );
 }

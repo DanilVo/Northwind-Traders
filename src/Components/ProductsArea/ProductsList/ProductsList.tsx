@@ -1,3 +1,4 @@
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {
   Box,
   Button,
@@ -6,13 +7,11 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Container,
   Divider,
   Grid,
   Tooltip,
   Typography,
 } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -20,12 +19,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProductsModel from '../../../Models/ProductsModel';
 import productsServices from '../../../Service/ProductsServices';
 import './ProductsList.css';
-import { ProductsAction, ProductsActionTypes } from '../../../Redux/ProductsState';
 
 function ProductsList(): JSX.Element {
   const [beProducts, setBeProducts] = useState<ProductsModel[]>();
   let [isDeleted, setDeleted] = useState<boolean>(false);
-
   useEffect(() => {
     const id = toast.loading('Please wait...'); //add themes and move to service
     productsServices
@@ -52,8 +49,8 @@ function ProductsList(): JSX.Element {
 
   async function deleteProduct(id: number) {
     try {
+      if (!confirm('Are you sure you want to delete this item')) return;
       await productsServices.deleteProduct(id);
-
       setDeleted(!isDeleted);
     } catch (err) {
       alert(err);
@@ -65,7 +62,7 @@ function ProductsList(): JSX.Element {
       <Grid container spacing={{ xs: 2, sm: 2, md: 4, lg: 4 }}>
         {beProducts?.map((feProducts) => (
           <Grid item xs={12} sm={6} md={4} lg={2} key={feProducts.id}>
-            <Card key={feProducts.id} sx={{ Width: 345, height: 310 }}>
+            <Card sx={{ Width: 345, height: 310 }}>
               <CardMedia
                 component="img"
                 image={feProducts.imageUrl}
