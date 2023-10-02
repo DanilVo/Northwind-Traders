@@ -1,4 +1,4 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
   Box,
   Button,
@@ -10,20 +10,21 @@ import {
   TableHead,
   TableRow,
   Tooltip,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import EmployeeModel from '../../../Models/EmployeeModel';
-import employeesServices from '../../../Service/EmployeesServices';
-import './EmployeeList.css';
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import EmployeeModel from "../../../Models/EmployeeModel";
+import employeesServices from "../../../Service/EmployeesServices";
+import "./EmployeeList.css";
+import appConfig from "../../../Utils/AppConfig";
 
 function EmployeeList(): JSX.Element {
   const [beEmployees, setBeEmployees] = useState<EmployeeModel[]>();
   const [isDeleted, setDeleted] = useState<boolean>(false);
 
   useEffect(() => {
-    const id = toast.loading('Please wait...'); //add themes and move to service
+    const id = toast.loading("Please wait..."); //add themes and move to service
 
     employeesServices
       .getAllEmployees()
@@ -33,16 +34,16 @@ function EmployeeList(): JSX.Element {
       })
       .catch((err) =>
         toast.update(id, {
-          type: 'error',
+          type: "error",
           render: err.message,
-          position: 'top-center',
+          position: "top-center",
           isLoading: false,
           autoClose: 3000,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'colored',
+          theme: "colored",
         })
       );
   }, [isDeleted]);
@@ -55,7 +56,7 @@ function EmployeeList(): JSX.Element {
       console.log(error);
     }
   }
-
+  
   return (
     <Box sx={{ flexGrow: 1, m: 5, marginTop: 1 }}>
       <TableContainer>
@@ -72,11 +73,14 @@ function EmployeeList(): JSX.Element {
             {beEmployees?.map((feEmployee) => (
               <TableRow key={feEmployee.id}>
                 <TableCell align="left">
-                  {feEmployee.firstName + ' ' + feEmployee.lastName}
+                  {feEmployee.firstName + " " + feEmployee.lastName}
                 </TableCell>
                 <TableCell align="left">{feEmployee.title}</TableCell>
                 <TableCell align="left">
-                  <img src={`${feEmployee.imageUrl}`} height="100px" />
+                  <img
+                    src={`${feEmployee.imageUrl}`}
+                    height="100px"
+                  />
                 </TableCell>
                 <TableCell>
                   <ButtonGroup>
@@ -93,11 +97,11 @@ function EmployeeList(): JSX.Element {
           </TableBody>
         </Table>
       </TableContainer>
-      <NavLink to={'/employees/addEmployee'}>
+      <NavLink to={"/employees/addEmployee"}>
         <Tooltip
           title="Add new product"
           placement="bottom"
-          sx={{ position: 'fixed', bottom: 55, right: 5 }}
+          sx={{ position: "fixed", bottom: 55, right: 5 }}
         >
           <Button>
             <AddCircleIcon fontSize="large" />
